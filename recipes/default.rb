@@ -23,8 +23,14 @@ end
 
 package "libmemcache-dev" do
   case node[:platform]
-  when "redhat","centos","fedora"
-    package_name "libmemcached-devel"
+  when "centos"
+    if Float(node[:platform_version]) < 6
+      package_name "libmemcached-devel"
+    else
+      package_name "libmemcache-dev"
+    end
+  when "redhat","fedora"
+    package_name "libmemcache-devel"
   else
     package_name "libmemcache-dev"
   end
